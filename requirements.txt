@@ -1,0 +1,3 @@
+# Python dependencies for Laravel Vulnerability Scanner
+# All required modules are part of Python standard library
+# No external packages needed
