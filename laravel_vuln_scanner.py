@@ -5,11 +5,10 @@ Supports: Composer Audit, Snyk, Online/Offline, HTML Reports
 """
 
 import tkinter as tk
-from tkinter import filedialog, messagebox, scrolledtext, ttk
+from tkinter import filedialog, messagebox, ttk
 import subprocess
 import os
 import json
-import re
 import webbrowser
 from datetime import datetime
 import threading
@@ -80,7 +79,7 @@ class LaravelVulnScanner:
         btn_frame.pack(pady=12)
         tk.Button(btn_frame, text="Run Scan", command=self.start_scan_thread, bg="#27ae60", fg="white", font=("Helvetica", 12, "bold"), width=15).pack(side=tk.LEFT, padx=8)
         tk.Button(btn_frame, text="Export HTML Report", command=self.export_html, bg="#e67e22", fg="white", font=("Helvetica", 10), width=20).pack(side=tk.LEFT, padx=8)
-        tk.Button(btn_frame, text="Clear", command=self.clear_results, bg="#95a5a6", fg="white", font=("Helvetica", 10), width=10 Sentences).pack(side=tk.LEFT, padx=8)
+        tk.Button(btn_frame, text="Clear", command=self.clear_results, bg="#95a5a6", fg="white", font=("Helvetica", 10), width=10).pack(side=tk.LEFT, padx=8)
 
         # === Bottom Panel: Results ===
         bottom_panel = tk.Frame(main)
@@ -98,7 +97,7 @@ class LaravelVulnScanner:
 
         # Column config
         widths = [180, 100, 90, 320, 250, 80]
-        for i, (col, w) in enumerate(zip(columns, widths)):
+        for col, w in zip(columns, widths):
             self.tree.heading(col, text=col)
             self.tree.column(col, width=w, anchor=tk.W if col != "Severity" else "center")
 
@@ -242,7 +241,7 @@ class LaravelVulnScanner:
         vuln_data = {
             "package": f"{package} ({version})",
             "cve": cve,
-            "severity": severity.capitalize(),
+            "severity": severity,
             "description": title[:150] + "..." if len(title) > 150 else title,
             "full_desc": title,
             "suggestion": suggestion,
